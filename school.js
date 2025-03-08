@@ -9,10 +9,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Allow CORS for all origins (update for security)
 app.use(cors({ origin: '*' }));
 
-// Function to calculate Haversine distance
 const getDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Earth radius in km
     const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -21,10 +19,9 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
         Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
         Math.sin(dLon / 2) ** 2;
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in km
+    return R * c; 
 };
 
-// ✅ **POST: Add a school**
 app.post('/addSchool', async (req, res) => {
     const { name, address, latitude, longitude } = req.body;
 
@@ -48,7 +45,6 @@ app.post('/addSchool', async (req, res) => {
     }
 });
 
-// ✅ **GET: List Schools Sorted by Proximity**
 app.get('/listSchools', async (req, res) => {
     const { latitude, longitude } = req.query;
 
