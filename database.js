@@ -15,7 +15,6 @@ const config = {
     }
 };
 
-// Create database connection pool
 const poolPromise = new sql.ConnectionPool(config)
     .connect()
     .then(pool => {
@@ -27,7 +26,6 @@ const poolPromise = new sql.ConnectionPool(config)
         process.exit(1);
     });
 
-// Function to ensure the 'schools' table exists
 const ensureTableExists = async () => {
     try {
         const pool = await poolPromise;
@@ -47,7 +45,6 @@ const ensureTableExists = async () => {
     }
 };
 
-// Function to insert a school
 const addSchool = async (name, address, latitude, longitude) => {
     try {
         const pool = await poolPromise;
@@ -66,7 +63,6 @@ const addSchool = async (name, address, latitude, longitude) => {
     }
 };
 
-// Function to get all schools
 const getSchools = async () => {
     try {
         const pool = await poolPromise;
@@ -79,7 +75,6 @@ const getSchools = async () => {
     }
 };
 
-// Ensure table exists on startup
 ensureTableExists();
 
 module.exports = { sql, poolPromise, addSchool, getSchools };
